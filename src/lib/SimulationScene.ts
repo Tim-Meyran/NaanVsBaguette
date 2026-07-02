@@ -212,23 +212,39 @@ export class SimulationScene {
     // Transparent background
     ctx.clearRect(0, 0, 512, 128);
     
-    // Draw a thick white line across the middle
-    ctx.strokeStyle = 'rgba(255, 255, 255, 0.4)';
-    ctx.lineWidth = 6;
+    // Draw a thick golden neon line across the middle
+    ctx.strokeStyle = 'rgba(246, 157, 60, 0.55)'; // brand gold/orange line
+    ctx.lineWidth = 8;
     ctx.beginPath();
     ctx.moveTo(10, 64);
     ctx.lineTo(502, 64);
     ctx.stroke();
     
-    // Draw a clean dark backing pill for the text to make it extremely readable
-    ctx.fillStyle = 'rgba(15, 23, 42, 0.6)';
+    // Draw a clean dark slate backing pill with a golden border
+    const pillWidth = 180;
+    const pillHeight = 74;
+    const pillX = 256 - pillWidth / 2;
+    const pillY = 64 - pillHeight / 2;
+    
+    ctx.fillStyle = 'rgba(15, 17, 23, 0.95)'; // dark slate capsule
     ctx.beginPath();
-    ctx.roundRect(176, 24, 160, 80, 20);
+    ctx.roundRect(pillX, pillY, pillWidth, pillHeight, 22);
     ctx.fill();
     
+    ctx.strokeStyle = '#f69d3c'; // brand gold border
+    ctx.lineWidth = 4;
+    ctx.beginPath();
+    ctx.roundRect(pillX, pillY, pillWidth, pillHeight, 22);
+    ctx.stroke();
+    
     // Draw text in the middle
+    ctx.shadowColor = 'rgba(0, 0, 0, 0.9)';
+    ctx.shadowBlur = 4;
+    ctx.shadowOffsetX = 1;
+    ctx.shadowOffsetY = 2;
+    
     ctx.fillStyle = '#ffffff';
-    ctx.font = 'bold 44px "Segoe UI", -apple-system, sans-serif';
+    ctx.font = 'bold 46px "Outfit", "Segoe UI", -apple-system, sans-serif';
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
     ctx.fillText(text, 256, 64);
@@ -236,6 +252,7 @@ export class SimulationScene {
     const texture = new THREE.CanvasTexture(canvas);
     texture.minFilter = THREE.LinearMipmapLinearFilter;
     texture.magFilter = THREE.LinearFilter;
+    texture.anisotropy = 16; // Add anisotropy so it looks extremely sharp even when viewed at flat glancing angles!
     
     const geom = new THREE.PlaneGeometry(8, 2); // 8m wide, 2m deep
     const mat = new THREE.MeshBasicMaterial({

@@ -66,20 +66,27 @@
 
     <!-- Highscore Compare bar -->
     <div class="highscore-compare-box">
-      <div class="compare-row">
-        <span>Deine Bestweite ({weaponType === 'naan' ? 'Naan' : 'Baguette'}):</span>
-        <strong class="best-val">
-          {Math.max(finalDistance, weaponType === 'naan' ? highscores.naan : highscores.baguette)}m
-        </strong>
-      </div>
+      <h3 class="compare-title">🏆 PERSÖNLICHE BESTWERTE</h3>
       
-      <!-- Horizontal comparison bar -->
-      <div class="comparison-bar-bg">
-        <div class="bar-fill naan-fill" style="width: {Math.min(100, (highscores.naan / 150) * 100)}%">
-          <span class="bar-label">🫓 Naan: {highscores.naan}m</span>
+      <!-- Naan Bestwert Row -->
+      <div class="score-progress-row">
+        <div class="score-progress-header">
+          <span class="score-progress-label">🫓 Naan-Frisbee Bestweite</span>
+          <span class="score-progress-val">{Math.max(finalDistance, highscores.naan).toFixed(1)} m</span>
         </div>
-        <div class="bar-fill baguette-fill" style="width: {Math.min(100, (highscores.baguette / 150) * 100)}%">
-          <span class="bar-label">🥖 Baguette: {highscores.baguette}m</span>
+        <div class="progress-bar-track">
+          <div class="progress-bar-fill naan-bar-fill" style="width: {Math.min(100, (Math.max(finalDistance, highscores.naan) / 200) * 100)}%"></div>
+        </div>
+      </div>
+
+      <!-- Baguette Bestwert Row -->
+      <div class="score-progress-row">
+        <div class="score-progress-header">
+          <span class="score-progress-label">🥖 Baguette-Speer Bestweite</span>
+          <span class="score-progress-val">{Math.max(finalDistance, highscores.baguette).toFixed(1)} m</span>
+        </div>
+        <div class="progress-bar-track">
+          <div class="progress-bar-fill baguette-bar-fill" style="width: {Math.min(100, (Math.max(finalDistance, highscores.baguette) / 200) * 100)}%"></div>
         </div>
       </div>
     </div>
@@ -217,64 +224,73 @@
 
   /* Highscore bar comparison */
   .highscore-compare-box {
-    background: rgba(0, 0, 0, 0.4);
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    border-radius: 14px;
-    padding: 12px;
-    margin-bottom: 16px;
+    background: rgba(15, 17, 23, 0.65);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    padding: 16px;
+    margin-bottom: 20px;
     text-align: left;
-  }
-
-  .compare-row {
-    display: flex;
-    justify-content: space-between;
-    font-size: 0.8rem;
-    color: #9ca3af;
-    margin-bottom: 8px;
-  }
-
-  .best-val {
-    color: #00ffcc;
-    font-weight: 700;
-  }
-
-  .comparison-bar-bg {
-    background: #1f2937;
-    height: 22px;
-    border-radius: 6px;
-    position: relative;
-    overflow: hidden;
     display: flex;
     flex-direction: column;
-    gap: 2px;
-    padding: 2px;
+    gap: 14px;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.4);
   }
 
-  .bar-fill {
-    height: 8px;
-    border-radius: 3px;
-    transition: width 0.8s ease-out;
-    position: relative;
-    min-width: 15px;
-  }
-
-  .naan-fill {
-    background: linear-gradient(90deg, #ebce96 0%, #c49a45 100%);
-  }
-
-  .baguette-fill {
-    background: linear-gradient(90deg, #f69d3c 0%, #b06517 100%);
-  }
-
-  .bar-label {
-    position: absolute;
-    left: 6px;
-    top: 50%;
-    transform: translateY(-50%);
-    font-size: 0.55rem;
+  .compare-title {
+    font-size: 0.72rem;
     font-weight: 800;
-    color: #111827;
-    white-space: nowrap;
+    color: #9ca3af;
+    letter-spacing: 0.1em;
+    margin: 0;
+    text-transform: uppercase;
+  }
+
+  .score-progress-row {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .score-progress-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.82rem;
+  }
+
+  .score-progress-label {
+    color: #d1d5db;
+    font-weight: 500;
+  }
+
+  .score-progress-val {
+    color: #ffffff;
+    font-weight: 800;
+  }
+
+  .progress-bar-track {
+    background: #111827;
+    height: 8px;
+    border-radius: 99px;
+    width: 100%;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+  }
+
+  .progress-bar-fill {
+    height: 100%;
+    border-radius: 99px;
+    transition: width 1s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .naan-bar-fill {
+    background: linear-gradient(90deg, #ebce96 0%, #d97706 100%);
+    box-shadow: 0 0 8px rgba(235, 206, 150, 0.3);
+  }
+
+  .baguette-bar-fill {
+    background: linear-gradient(90deg, #f69d3c 0%, #b06517 100%);
+    box-shadow: 0 0 8px rgba(246, 157, 60, 0.3);
   }
 
   /* Stats list */
