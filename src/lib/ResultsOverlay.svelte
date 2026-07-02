@@ -15,6 +15,17 @@
   let peakHeight = $derived(parseFloat(state.maxHeight.toFixed(1)));
   let topSpeed = $derived(Math.round(state.maxSpeed * 3.6));
 
+  let naanDisplayBest = $derived(
+    weaponType === 'naan' 
+      ? Math.max(finalDistance, highscores.naan) 
+      : highscores.naan
+  );
+  let baguetteDisplayBest = $derived(
+    weaponType === 'baguette' 
+      ? Math.max(finalDistance, highscores.baguette) 
+      : highscores.baguette
+  );
+
   // Determine if this throw is a new personal best
   let isNewRecord = $derived(
     weaponType === 'naan' 
@@ -72,10 +83,10 @@
       <div class="score-progress-row">
         <div class="score-progress-header">
           <span class="score-progress-label">🫓 Naan-Frisbee Bestweite</span>
-          <span class="score-progress-val">{Math.max(finalDistance, highscores.naan).toFixed(1)} m</span>
+          <span class="score-progress-val">{naanDisplayBest.toFixed(1)} m</span>
         </div>
         <div class="progress-bar-track">
-          <div class="progress-bar-fill naan-bar-fill" style="width: {Math.min(100, (Math.max(finalDistance, highscores.naan) / 200) * 100)}%"></div>
+          <div class="progress-bar-fill naan-bar-fill" style="width: {Math.min(100, (naanDisplayBest / 200) * 100)}%"></div>
         </div>
       </div>
 
@@ -83,10 +94,10 @@
       <div class="score-progress-row">
         <div class="score-progress-header">
           <span class="score-progress-label">🥖 Baguette-Speer Bestweite</span>
-          <span class="score-progress-val">{Math.max(finalDistance, highscores.baguette).toFixed(1)} m</span>
+          <span class="score-progress-val">{baguetteDisplayBest.toFixed(1)} m</span>
         </div>
         <div class="progress-bar-track">
-          <div class="progress-bar-fill baguette-bar-fill" style="width: {Math.min(100, (Math.max(finalDistance, highscores.baguette) / 200) * 100)}%"></div>
+          <div class="progress-bar-fill baguette-bar-fill" style="width: {Math.min(100, (baguetteDisplayBest / 200) * 100)}%"></div>
         </div>
       </div>
     </div>
