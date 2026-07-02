@@ -249,6 +249,7 @@ export class SimulationScene {
     
     const mesh = new THREE.Mesh(geom, mat);
     mesh.rotation.x = -Math.PI / 2;
+    mesh.rotation.z = Math.PI; // rotate 180 deg so it reads left-to-right from player view
     mesh.position.set(0, 0.015, distance); // slightly raised above ground
     return mesh;
   }
